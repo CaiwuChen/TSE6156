@@ -78,7 +78,7 @@ for _ in tqdm(range(int(sim_duration / dt)), desc=desc):
         obs[0, 24:36] = dq_sim * scale_joint_vel
         obs[0, 36:48] = action
 
-        printed_obs = [int((float(Decimal("%.1f" % x)) + 5) * 10) for x in obs[0]]
+        printed_obs = [int((float(Decimal("%.1f" % x))+5) * 10) for x in obs[0]]
         printed_obs = printed_obs[0:9] + printed_obs[12:36]
 
         if msg != "":
@@ -90,11 +90,20 @@ for _ in tqdm(range(int(sim_duration / dt)), desc=desc):
         action = np.clip(action, -5, 5)
 
         if count >= 2000:
+        
             action_from_llm = llm_query(msg)
+            
             msg = action_from_llm
-            action = action_from_llm.split(": ", 1)[1]
-            action = literal_eval(action)
-            action = np.array([float(x) / 10.0 - 5.0 for x in action])
+            if action_from_llm.startswith("Output: "):
+                action_str = action_from_llm.split(": ", 1)[1]
+                try:
+                    action = literal_eval(action_str)
+                    action = np.array([float(x) / 10.0 - 5.0 for x in action])
+                except (SyntaxError, ValueError) as e:
+                    print(f"Error parsing action: {e}, response: {action_from_llm}")
+                    action = np.zeros(12)  # Fallback to default action
+          
+            
         else:
             if msg != "":
                 llm_query(msg, call_api=False)
