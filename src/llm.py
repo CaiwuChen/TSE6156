@@ -7,16 +7,16 @@ import textwrap
 def llm_init():
     global client, prompt_system, prompt_history, query_count
 
-    client = genai.Client(api_key="AIzaSyBCzRutWIyKtOHU7U9o0kSecLynt-8wLm0")
+    client = genai.Client(api_key="Your_API_KEY")
     '''
     client = OpenAI(
         base_url="https://openrouter.ai/api/v1",
-        api_key="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",
+        api_key="Your_API_KEY",
     )
     
     client = OpenAI(
         base_url="https://openrouter.ai/api/v1",
-        api_key="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",
+        api_key="Your_API_KEY",
     )
     '''
     prompt_system = '''
