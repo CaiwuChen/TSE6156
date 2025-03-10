@@ -7,7 +7,7 @@ Caiwu Chen, cc4786
 The original prompt2walk project is the paper [Prompt a Robot to Walk with Large Language Models](https://arxiv.org/abs/2309.09969) by [Yen-Jen Wang](https://wangyenjen.github.io/), [Bike Zhang](https://bikezhang106.github.io/), [Jianyu Chen](http://people.iiis.tsinghua.edu.cn/~jychen/), and [Koushil Sreenath](https://hybrid-robotics.berkeley.edu/koushil/).
 
 
-The LLM directly outputs the low-level action to make a robot to walk. In our experiment, the LLM is supposed to run at 10 Hz although the simulation has to be paused to wait for LLM inference, and the PD controller executes at 200 Hz.
+The LLM directly outputs the low-level action to make a robot to walk. In our experiment, the LLM is supposed to run at 60-80 Hz although the simulation has to be paused to wait for LLM inference, and the PD controller executes at 200 Hz.
 
 ## Setup
 
@@ -28,7 +28,7 @@ pip install -r requirements.txt
 
 ### Configuration
 
-Please fill the `openai.api_key` in `src/llm.py`.
+Please replace your api_key in `src/llm.py`.
 
 ### Collect the trajectory from the LLM controller
 
